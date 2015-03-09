@@ -1,44 +1,44 @@
-#include "stdafx.h"
-#include "opencv_lib.hpp"								// OpenCVƒwƒbƒ_
+ï»¿#include "stdafx.h"
+#include "opencv_lib.hpp"								// OpenCVãƒ˜ãƒƒãƒ€
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Mat frame;											// ‰æ‘œƒŠƒ\[ƒXéŒ¾
-	VideoCapture src(1);								// ‰f‘œæ“¾iƒJƒƒ‰‰f‘œj
-	if (src.isOpened() == 0){ cout << "‰f‘œ‚ªæ“¾‚Å‚«‚Ü‚¹‚ñB\n" << endl; waitKey(0); return -1;}
+	Mat frame;											// ç”»åƒãƒªã‚½ãƒ¼ã‚¹å®£è¨€
+	VideoCapture src(1);								// æ˜ åƒå–å¾—ï¼ˆã‚«ãƒ¡ãƒ©æ˜ åƒï¼‰
+	if (src.isOpened() == 0){ cout << "æ˜ åƒãŒå–å¾—ã§ãã¾ã›ã‚“ã€‚\n" << endl; waitKey(0); return -1;}
 
-	while (frame.data == NULL){ src >> frame; }			// ‰ŠúƒtƒŒ[ƒ€æ“¾
+	while (frame.data == NULL){ src >> frame; }			// åˆæœŸãƒ•ãƒ¬ãƒ¼ãƒ å–å¾—
 
-	int w = frame.cols, h = frame.rows;					// ‰f‘œƒtƒŒ[ƒ€‚Ì•‚Æ‚‚³
+	int w = frame.cols, h = frame.rows;					// æ˜ åƒãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…ã¨é«˜ã•
 
 	while (1){
 
-		src >> frame; if (frame.data == NULL) break;	// 1ƒtƒŒ[ƒ€æ“¾
-		//’†SÀ•W‚ÌRGB’l•\¦i•ÏŠ·‘Oj
-		printf("RGB=(%3d, %3d, %3d) ¨ ", Ri(frame, w / 2, h / 2),
+		src >> frame; if (frame.data == NULL) break;	// 1ãƒ•ãƒ¬ãƒ¼ãƒ å–å¾—
+		//ä¸­å¿ƒåº§æ¨™ã®RGBå€¤è¡¨ç¤ºï¼ˆå¤‰æ›å‰ï¼‰
+		printf("RGB=(%3d, %3d, %3d) â†’ ", Ri(frame, w / 2, h / 2),
 				Gi(frame, w / 2, h / 2), Bi(frame, w / 2, h / 2));
 
-		for (int y = h / 3; y < h * 2 / 3; y++){		//ƒsƒNƒZƒ‹’l•ÏŠ·—Ìˆæ‚’¼•ûŒü
-			for (int x = w / 3; x < w * 2 / 3; x++){	//ƒsƒNƒZƒ‹’l•ÏŠ·—Ìˆæ…•½•ûŒü
-				if (Ri(frame, x, y) > 200){				//Ô‚ÌƒsƒNƒZƒ‹’l‚ª200‚æ‚è‘å‚«‚¢ê‡
+		for (int y = h / 3; y < h * 2 / 3; y++){		//ãƒ”ã‚¯ã‚»ãƒ«å€¤å¤‰æ›é ˜åŸŸå‚ç›´æ–¹å‘
+			for (int x = w / 3; x < w * 2 / 3; x++){	//ãƒ”ã‚¯ã‚»ãƒ«å€¤å¤‰æ›é ˜åŸŸæ°´å¹³æ–¹å‘
+				if (Ri(frame, x, y) > 200){				//èµ¤ã®ãƒ”ã‚¯ã‚»ãƒ«å€¤ãŒ200ã‚ˆã‚Šå¤§ãã„å ´åˆ
 					Ri(frame, x, y) = 255;
 					Gi(frame, x, y) = 255;
 					Bi(frame, x, y) = 255;
 				}
-				else{									//Ô‚ÌƒsƒNƒZƒ‹’l‚ª200ˆÈ‰º‚Ìê‡
+				else{									//èµ¤ã®ãƒ”ã‚¯ã‚»ãƒ«å€¤ãŒ200ä»¥ä¸‹ã®å ´åˆ
 					Ri(frame, x, y) = 0;
 					Gi(frame, x, y) = 0;
 					Bi(frame, x, y) = 0;
 				}
 			}
 		}
-		//’†SÀ•W‚ÌRGB’l•\¦i•ÏŠ·Œãj
+		//ä¸­å¿ƒåº§æ¨™ã®RGBå€¤è¡¨ç¤ºï¼ˆå¤‰æ›å¾Œï¼‰
 		printf("RGB=(%3d, %3d, %3d)\n", Ri(frame, w / 2, h / 2),
 				Gi(frame, w / 2, h / 2), Bi(frame, w / 2, h / 2));
 
-		imshow("“ü—Í‰f‘œ", frame);						// 1ƒtƒŒ[ƒ€•\¦
+		imshow("å…¥åŠ›æ˜ åƒ", frame);						// 1ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤º
 
-		if(waitKey(30) == 27) break;					// ƒL[“ü—Í‘Ò‹@i30msj
+		if(waitKey(30) == 27) break;					// ã‚­ãƒ¼å…¥åŠ›å¾…æ©Ÿï¼ˆ30msï¼‰
 	}
 
 	return 0;
